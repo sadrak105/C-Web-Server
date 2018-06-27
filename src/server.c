@@ -287,6 +287,17 @@ void handle_http_request(int fd)
   // !!!! IMPLEMENT ME
   // Get the request type and path from the first line
   // Hint: sscanf()!
+  
+  // char *first_line = request;
+
+  // p = strchr(first_line, '\n');
+  
+  // *p = '\0';
+
+  // char *rest_of_header = p + 1;
+  sscanf(request, "%s %s %s", request_type, request_path, request_protocol);
+
+
 
   // !!!! IMPLEMENT ME (stretch goal)
   // find_start_of_body()
