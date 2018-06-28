@@ -192,7 +192,9 @@ int send_response(int fd, char *header, char *content_type, char *body)
   int response_length; // Total length of header plus body
   int content_length = strlen(body);
   time_t seconds = time(NULL);
-  timestamp
+  // convert to a tm struct
+  struct tm *ltime = localtime(&seconds);
+  char *timestamp = asctime(ltime);
   // !!!!  IMPLEMENT ME
   response_length = sprintf(response,
     //format
@@ -206,7 +208,7 @@ int send_response(int fd, char *header, char *content_type, char *body)
     //body
     "%s",
     header,
-    time,
+    timestamp,
     content_length,
     content_type,
     body
