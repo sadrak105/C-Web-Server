@@ -190,8 +190,27 @@ int send_response(int fd, char *header, char *content_type, char *body)
   const int max_response_size = 65536;
   char response[max_response_size];
   int response_length; // Total length of header plus body
-
+  int content_length = strlen(body);
+  time_t seconds = time(NULL);
+  timestamp
   // !!!!  IMPLEMENT ME
+  response_length = sprintf(response,
+    //format
+    //header
+    "%s\n"
+    "Date: %s" //the new line is handled automatically by the time function
+    "Conncection: closw\n"
+    "Content-Length: %d\n"
+    "Content-Type: %s\n"
+    "\n"
+    //body
+    "%s",
+    header,
+    time,
+    content_length,
+    content_type,
+    body
+  );
 
   // Send it all!
   int rv = send(fd, response, response_length, 0);
