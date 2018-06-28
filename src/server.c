@@ -239,7 +239,7 @@ void resp_404(int fd)
 void get_root(int fd)
 {
   // !!!! IMPLEMENT ME
-  //send_response(...
+  send_response(fd, "HTTP/1.1. OK", "text/html", "<html><h1>Hello, World!</h1></html>");
 }
 
 /**
@@ -248,6 +248,12 @@ void get_root(int fd)
 void get_d20(int fd)
 {
   // !!!! IMPLEMENT ME
+  // seed the random number generator
+  srand(time(NULL) + getpid());
+
+  char response_body[8];
+  sprintf(response_body, "%d\n", (rand() % 20) +1);
+  send_response(fd, "HTTP/1.1 200 OK", "text/plain", response_body);
 }
 
 /**
@@ -256,6 +262,14 @@ void get_d20(int fd)
 void get_date(int fd)
 {
   // !!!! IMPLEMENT ME
+  char response_body[128];
+  time_t seconds = time(NULL);
+  struct tm *ltime = localtime(&seconds);
+
+  sprintf(response_body, "%s", asctime(ltime));
+
+  send_response(fd, "HTTP/1.1 200 OK", "text/plain", response_body);
+
 }
 
 /**
